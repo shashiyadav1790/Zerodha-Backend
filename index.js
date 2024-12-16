@@ -13,10 +13,6 @@ const flash = require("connect-flash");
 
 const path = require("path");
 
-
-
-
-
 const {HoldingsModel} = require("./models/HoldingModels");
 const {PostionsModel} = require("./models/PostionsModels")
 const {OrderModel} = require("./models/OrderModels");
@@ -30,7 +26,7 @@ app.use(flash());
 
 
 const sessionOptions = {
-      secret: "myseceretcode",
+      secret: process.env.MONGO_URL;
       resave: "false",
       saveUninitialized: "true",
       cookie: {
@@ -59,32 +55,20 @@ app.use((req,res,next)=>{
     next();
 })
 
-
 app.use(express.static(path.join(__dirname, "frontend", "b")));
 
-// React के index.html को serve करें
 app.get("/", (req, res) => {
     console.log("home page");
     res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
 });
 
-// app.post("/signup",async(req,res)=>{
-//     const users = await User({
-//         username:  req.body.username,
-//         email: req.body.email,
-//     });
-//     const password = req.body.password;
-//    const registerUser = await User.register(users,password);
-//    console.log(registerUser);
-// //    req.flash("success","Succesfully registered");
-//    console.log("before redirect");
-//    res.send("yesssssssssssssssssssss !")
-//    console.log("after redirect");
-// })
 
 app.post("/signup", async (req, res) => {
+    // res.send("skdjflsdkjfls")
+    console.log("successfully");
     try {
         const { username, email, password } = req.body;
+        console.log(req.body.username);
 
         if (!username  ,!password) {
             req.flash("error", "All fields are required.");
@@ -101,12 +85,14 @@ app.post("/signup", async (req, res) => {
 
         req.flash("success", "Successfully registered.");
         res.json({success: true});
+        
 
     } catch (error) {
         console.error("Error during registration:", error);
         req.flash("error", "There was an issue with your registration. Please try again.");
         res.redirect("/signup");
     }
+  
 });
 
 
@@ -115,9 +101,6 @@ app.post("/login",passport.authenticate('local',{failureRedirect: "/login",failu
     res.json({success: true});
     console.log("welcome to home");
 })
-
-
-
 
 
 // app.get("/addholdings",async(req,res)=>{
@@ -292,9 +275,6 @@ app.post("/login",passport.authenticate('local',{failureRedirect: "/login",failu
 // })
 
 
-
-
-
 app.get("/allHoldings",async(req,res)=>{
     const allHoldings = await HoldingsModel.find({});
     res.json(allHoldings);
@@ -315,6 +295,18 @@ app.post("/newOrder",async(req,res)=>{
     newOrder.save();
     res.send("Order saved successfully !")
 })
+
+// const ensureAuthenticated = (req, res, next) => {
+//     if (req.isAuthenticated()) {
+//       return next();
+//     }
+//     res.redirect("/login"); // Redirect to login if not authenticated
+//   };
+  
+  // Example protected route
+//   app.get("/dashboard", ensureAuthenticated, (req, res) => {
+//     res.send("Welcome to your dashboard!");
+//   });
 
 app.listen(PORT,()=>{
     console.log("listning on port",port);
