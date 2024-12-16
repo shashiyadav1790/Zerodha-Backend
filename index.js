@@ -33,7 +33,7 @@ app.use(flash());
 
 
 const sessionOptions = {
-      secret: process.env.MONGO_URL;
+      secret: process.env.MONGO_URL,
       resave: "false",
       saveUninitialized: "true",
       cookie: {
