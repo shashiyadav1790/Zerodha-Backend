@@ -70,8 +70,8 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/signup", async (req, res) => {
-    // res.send("skdjflsdkjfls")
+app.post("/signup", async (req, res,next) => {
+  
     console.log("successfully");
     try {
         const { username, email, password } = req.body;
@@ -99,6 +99,7 @@ app.post("/signup", async (req, res) => {
         req.flash("error", "There was an issue with your registration. Please try again.");
         res.redirect("/signup");
     }
+    next();
   
 });
 
