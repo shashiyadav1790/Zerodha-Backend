@@ -20,7 +20,14 @@ const mongoose = require("mongoose");
 const url= process.env.MONGO_URL;
 const PORT = process.env.PORT || 8080;
 
-app.use(cors());
+
+app.use(cors({
+    origin: ["https://zerodha-clone-gamma.vercel.app/","zerodha-dashboard-alpha.vercel.app","https://zerodhabackend-r6a5.onrender.com"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    domain: "zerodha-dashboard-alpha.vercel.app",
+    allowedHeaders: ["Content-Type", "Authorization"]
+  }))
 app.use(bodyParser.json())
 app.use(flash());
 
