@@ -22,14 +22,15 @@ const PORT = 3000;
 
 
 app.use(cors({
-    origin: ["https://zerodha-clone-gamma.vercel.app", "https://zerodha-dashboard-alpha.vercel.app","https://zerodhabackend-r6a5.onrender.com/signup"],
+    // origin: ["https://zerodha-clone-gamma.vercel.app", "https://zerodha-dashboard-alpha.vercel.app","https://zerodhabackend-r6a5.onrender.com/signup"],
+    origin: "*",
     credentials: true,
     domain: "https://zerodha-dashboard-alpha.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-app.options('*', cors());
+// app.options('*', cors());
 
 app.use(bodyParser.json())
 app.use(flash());
