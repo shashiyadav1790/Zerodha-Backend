@@ -18,16 +18,15 @@ const {PostionsModel} = require("./models/PostionsModels")
 const {OrderModel} = require("./models/OrderModels");
 const mongoose = require("mongoose");
 const url= process.env.MONGO_URL;
-const PORT = process.env.PORT || 8080;
+const PORT = 3000;
 
 
 app.use(cors({
-    origin: ["https://zerodha-clone-gamma.vercel.app/","zerodha-dashboard-alpha.vercel.app","https://zerodhabackend-r6a5.onrender.com"],
+    origin: ["https://zerodha-clone-gamma.vercel.app", "https://zerodha-dashboard-alpha.vercel.app"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
-    domain: "zerodha-dashboard-alpha.vercel.app",
     allowedHeaders: ["Content-Type", "Authorization"]
-  }))
+}));
 app.use(bodyParser.json())
 app.use(flash());
 
@@ -70,7 +69,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/signup", async (req, res,next) => {
+app.post("/signup", async (req, res) => {
   
     console.log("successfully");
     try {
@@ -99,7 +98,7 @@ app.post("/signup", async (req, res,next) => {
         req.flash("error", "There was an issue with your registration. Please try again.");
         res.redirect("/signup");
     }
-    next();
+    
   
 });
 
