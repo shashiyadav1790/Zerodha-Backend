@@ -364,6 +364,8 @@ app.use(cors({
 
 app.options('*', (req, res) => {
   res.header('Access-Control-Allow-Origin', 'https://zerodha-fronted.vercel.app');
+  res.header('Access-Control-Allow-Origin','https://zerodha-dashboard-blush.vercel.app/' );
+  res.header('Access-Control-Allow-Origin', "https://zerodhabackend-r6a5.onrender.com");
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');
