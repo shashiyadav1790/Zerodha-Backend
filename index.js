@@ -346,6 +346,13 @@ const {position} = require('./models/PostionsModels.js');
 const {OrderModel} = require("./models/OrderModels.js");
 const { default: mongoose } = require('mongoose');
 const cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
+
+app.use(express.json());
+app.use(bodyParser.json());
+
+
 // const { default: Orders } = require('../dashboard/src/components/Orders.js');
 app.use(cors({
   origin: ["https://zerodha-fronted.vercel.app/","https://zerodha-dashboard-blush.vercel.app/","https://zerodhabackend-r6a5.onrender.com"],
@@ -354,10 +361,16 @@ app.use(cors({
   domain: "https://zerodha-dashboard-blush.vercel.app/",
   allowedHeaders: ["Content-Type", "Authorization"]
 }))
-app.use(cookieParser());
 
-app.use(express.json());
-app.use(bodyParser.json());
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'https://zerodha-fronted.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
+});
+
+
 app.get('/allHoldings',async(req,res)=>{
   let allHoldings = await holding.find({});
   res.json(allHoldings);
