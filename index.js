@@ -348,10 +348,10 @@ const { default: mongoose } = require('mongoose');
 const cookieParser = require("cookie-parser");
 // const { default: Orders } = require('../dashboard/src/components/Orders.js');
 app.use(cors({
-  origin: ["https://zerodha-clone-gamma.vercel.app","https://zerodha-dashboard-alpha.vercel.app","https://zerodhabackend-r6a5.onrender.com"],
+  origin: ["https://zerodha-fronted.vercel.app/","https://zerodha-dashboard-blush.vercel.app/","https://zerodhabackend-r6a5.onrender.com"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
-  domain: "https://zerodha-dashboard-alpha.vercel.app",
+  domain: "https://zerodha-dashboard-blush.vercel.app/",
   allowedHeaders: ["Content-Type", "Authorization"]
 }))
 app.use(cookieParser());
