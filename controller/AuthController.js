@@ -3,6 +3,7 @@ const { createSecretToken } = require("../utils/SeceretToken");
 const bcrypt = require("bcryptjs");
 
 module.exports.Signup = async (req, res, next) => {
+
   try {
     const { email, password, username, createdAt } = req.body;
     const existingUser = await User.findOne({ email });
